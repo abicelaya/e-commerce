@@ -102,6 +102,10 @@ function cleanCart() {
 // Exercise 3
 function calculateTotal() {
   // Calculate total price of the cart using the "cartList" array
+  total = cart.reduce(
+    (acumulador, product) => acumulador + product.price * product.quantity,
+    0
+  );
 }
 
 // Exercise 4
