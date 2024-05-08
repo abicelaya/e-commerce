@@ -111,6 +111,20 @@ function calculateTotal() {
 // Exercise 4
 function applyPromotionsCart() {
   // Apply promotions to each item in the array "cart"
+  // para aplicar descuento el producto debe cumplir con:
+  // 1. buscar la propiedad offer.
+  // 2. busco si la cantidad del producto es mayor o igual que la propiedad number, product.quantity >= product.offer.number
+  // ---> si cumple lo guardamos en una nueva propiedad el subtotalWithDiscount.
+
+  let discountedProduct = cart.filter((product) =>
+    product.hasOwnProperty("offer")
+  );
+  discountedProduct.map((product) => {
+    if (product.quantity >= product.offer.number) {
+      product.subtotalWithDiscount =
+        product.price - (product.price * product.offer.percent) / 100;
+    }
+  });
 }
 
 // Exercise 5
