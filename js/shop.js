@@ -2,7 +2,7 @@
 var products = [
   {
     id: 1,
-    name: "cooking oil",
+    name: "Cooking oil",
     price: 10.5,
     type: "grocery",
     offer: {
@@ -130,6 +130,44 @@ function applyPromotionsCart() {
 // Exercise 5
 function printCart() {
   // Fill the shopping cart modal manipulating the shopping cart dom
+  // para mostrar en el modal primero hay que buscar que productos se añadieron al carrito
+
+  let tabla = document.getElementById("cart_list");
+  applyPromotionsCart();
+  // Limpiamos el contenido anterior de la tabla
+  tabla.innerHTML = "";
+
+  // Recorremos el carrito y creamos una fila por cada elemento
+  for (let i = 0; i < cart.length; i++) {
+    let fila = document.createElement("tr");
+
+    // Creamos las celdas de la fila
+    let nombreCelda = document.createElement("th");
+    nombreCelda.textContent = cart[i].name;
+    fila.appendChild(nombreCelda);
+
+    let calcPrice = 0;
+    if (cart[i].hasOwnProperty("subtotalWithDiscount")) {
+      calcPrice = cart[i].subtotalWithDiscount;
+    } else {
+      calcPrice = cart[i].price;
+    }
+
+    let precioCelda = document.createElement("td");
+    precioCelda.textContent = calcPrice;
+    fila.appendChild(precioCelda);
+
+    let cantidadCelda = document.createElement("td");
+    cantidadCelda.textContent = cart[i].quantity;
+    fila.appendChild(cantidadCelda);
+
+    let subtotalCelda = document.createElement("td");
+    subtotalCelda.textContent = calcPrice * cart[i].quantity;
+    fila.appendChild(subtotalCelda);
+
+    // Agregamos la fila a la tabla
+    tabla.appendChild(fila);
+  }
 }
 
 // ** Nivell II **
