@@ -165,6 +165,16 @@ function printCart() {
     subtotalCelda.textContent = calcPrice * cart[i].quantity;
     fila.appendChild(subtotalCelda);
 
+    let botonEliminar = document.createElement("button");
+    botonEliminar.textContent = "-";
+    botonEliminar.onclick = function () {
+      removeFromCart(cart[i].id);
+      printCart(); // Volvemos a imprimir el carrito después de eliminar el producto
+    };
+    let botonCelda = document.createElement("td");
+    botonCelda.appendChild(botonEliminar);
+    fila.appendChild(botonCelda);
+
     // Agregamos la fila a la tabla
     tabla.appendChild(fila);
   }
@@ -173,7 +183,18 @@ function printCart() {
 // ** Nivell II **
 
 // Exercise 7
-function removeFromCart(id) {}
+function removeFromCart(id) {
+  // buscar el producto en el carrito
+  for (let i = 0; i < cart.length; i++) {
+    if (cart[i].id === id) {
+      // si la cantidad del producto es mayor que 1 decrementa la cantidad
+      cart[i].quantity--;
+    }
+  }
+  //filtramos los productos con cantidad > 0 y devolvemos un array nuevo
+  cart = cart.filter((product) => product.quantity > 0);
+  applyPromotionsCart();
+}
 
 function open_modal() {
   printCart();
